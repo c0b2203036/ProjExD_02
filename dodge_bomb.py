@@ -90,7 +90,7 @@ def main():
         if kk_rct.colliderect(bd_rct):
             screen.blit(bg_img,[0,0])
             screen.blit(kk_img2, kk_rct)
-            screen.blit(moji, [400,400])
+            screen.blit(moji, [400,400]) #文字の表示の追加機能
             pg.display.update()
         
         pg.display.update()
