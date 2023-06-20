@@ -97,6 +97,8 @@ def main():
         tmr += 1
         clock.tick(50)
 
+#aaa
+
 
 if __name__ == "__main__":
     pg.init()
