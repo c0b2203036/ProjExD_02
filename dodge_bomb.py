@@ -1,7 +1,7 @@
 import random
 import sys
 import pygame as pg
-
+import time
 
 WIDTH, HEIGHT = 1600, 900
 delta = {
@@ -32,6 +32,8 @@ def main():
     bg_img = pg.image.load("ex02/fig/pg_bg.jpg")
     kk_img = pg.image.load("ex02/fig/3.png")
     kk_img = pg.transform.rotozoom(kk_img, 0, 2.0)
+    kk_img2 = pg.image.load("ex02/fig/6.png")
+    kk_img2 = pg.transform.rotozoom(kk_img2,0, 2.0)
     # こうかとんSurface（kk_img）からこうかとんRect（kk_rct）を抽出する
     kk_rct = kk_img.get_rect()
     kk_rct.center = 900, 400
@@ -45,6 +47,11 @@ def main():
     # 爆弾Rectの中心座標を乱数で指定する
     bd_rct.center = x, y 
     vx, vy = +5, +5  # 練習２
+    accs = [a for a in range(1, 11)]
+    # 追加機能
+    fonto =  pg.font.Font(None, 80)
+    moji = fonto.render("GAME OVER", True, (255,255,255))
+
 
     clock = pg.time.Clock()
     tmr = 0
@@ -54,6 +61,8 @@ def main():
                 return
         
         if kk_rct.colliderect(bd_rct):  # 練習５
+            time.sleep(5)
+            
             print("ゲームオーバー")
             return   # ゲームオーバー
 
@@ -69,13 +78,21 @@ def main():
  
         screen.blit(bg_img, [0, 0])
         screen.blit(kk_img, kk_rct)
-        bd_rct.move_ip(vx, vy)  # 練習２
+    
+        avx, avy = vx*accs[min(tmr//500, 9)], vy*accs[min(tmr//500, 9)]
+        bd_rct.move_ip(avx, avy) # 練習２
         yoko, tate = check_bound(bd_rct)
         if not yoko:  # 横方向に画面外だったら
             vx *= -1
         if not tate:  # 縦方向に範囲外だったら
             vy *= -1
         screen.blit(bd_img, bd_rct)
+        if kk_rct.colliderect(bd_rct):
+            screen.blit(bg_img,[0,0])
+            screen.blit(kk_img2, kk_rct)
+            screen.blit(moji, [400,400])
+            pg.display.update()
+        
         pg.display.update()
         tmr += 1
         clock.tick(50)
