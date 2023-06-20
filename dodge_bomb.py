@@ -3,7 +3,7 @@ import sys
 import pygame as pg
 
 
-WIDTH, HEIGHT = 1200, 600
+WIDTH, HEIGHT = 1600, 900
 delta = {
     pg.K_UP: (0, -5),
     pg.K_DOWN: (0, +5),
@@ -52,6 +52,11 @@ def main():
         for event in pg.event.get():
             if event.type == pg.QUIT: 
                 return
+        
+        if kk_rct.colliderect(bd_rct):  # 練習５
+            print("ゲームオーバー")
+            return   # ゲームオーバー
+
         key_lst = pg.key.get_pressed()
         sum_mv = [0, 0]  # 合計移動量
         for k, mv in delta.items():
