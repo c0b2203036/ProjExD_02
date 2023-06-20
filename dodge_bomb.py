@@ -61,9 +61,14 @@ def main():
                 return
         
         if kk_rct.colliderect(bd_rct):  # 練習５
-            time.sleep(5)
             
+            screen.blit(bg_img,[0,0])
+            screen.blit(kk_img2, kk_rct)
+            screen.blit(moji, [400,400]) #文字の表示の追加機能
+            
+            pg.display.update()
             print("ゲームオーバー")
+            time.sleep(5)
             return   # ゲームオーバー
 
         key_lst = pg.key.get_pressed()
@@ -87,11 +92,8 @@ def main():
         if not tate:  # 縦方向に範囲外だったら
             vy *= -1
         screen.blit(bd_img, bd_rct)
-        if kk_rct.colliderect(bd_rct):
-            screen.blit(bg_img,[0,0])
-            screen.blit(kk_img2, kk_rct)
-            screen.blit(moji, [400,400]) #文字の表示の追加機能
-            pg.display.update()
+        #if kk_rct.colliderect(bd_rct):
+            
         
         pg.display.update()
         tmr += 1
